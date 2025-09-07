@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UNIX and UNIX-like Operating Systems - Terminal Presentation</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #000;
+        color: #00ff00;
+        font-family: "Courier Prime", "Courier New", monospace;
+        font-size: 16px;
+        line-height: 1.4;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+
+      .terminal-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 100vh;
+      }
+
+      .terminal-header {
+        border: 2px solid #00ff00;
+        padding: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        background-color: rgba(0, 255, 0, 0.1);
+      }
+
+      .section {
+        display: none;
+        margin-bottom: 30px;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      .section-content {
+        white-space: pre-wrap;
+        margin-bottom: 20px;
+      }
+
+      .cursor {
+        animation: blink 1s infinite;
+        font-weight: bold;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .prompt {
+        color: #ffff00;
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .navigation {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: rgba(0, 255, 0, 0.2);
+        border: 1px solid #00ff00;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .nav-button {
+        background-color: transparent;
+        color: #00ff00;
+        border: 1px solid #00ff00;
+        padding: 5px 10px;
+        margin: 2px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 12px;
+      }
+
+      .nav-button:hover {
+        background-color: #00ff00;
+        color: #000;
+      }
+
+      .ascii-art {
+        color: #00ffff;
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .highlight {
+        color: #ffff00;
+        font-weight: bold;
+      }
+
+      .group-info {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #00ffff;
+      }
+
+      .typing-text {
+        overflow: hidden;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          font-size: 14px;
+        }
+
+        .terminal-container {
+          padding: 10px;
+        }
+
+        .navigation {
+          position: relative;
+          bottom: auto;
+          right: auto;
+          margin-top: 20px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="ascii-art">
+          ███╗ ██╗██╗██╗ ██╗ ██╔██╗ ██║██║╚██╗██╔╝ ██║╚██╗██║██║ ╚███╔╝ ██║
+          ╚████║██║ ██╔██╗ ██║ ╚███║██║██╔╝ ██╗ ╚═╝ ╚══╝╚═╝╚═╝ ╚═╝
+        </div>
+        <h1>UNIX and UNIX-like Operating Systems</h1>
+        <div class="group-info">
+          <div>GROUP 1 PRESENTATION</div>
+          <div>Class: Operating Systems</div>
+        </div>
+      </div>
+
+      <!-- Section 0: Title and Group Members -->
+      <div class="section active" id="section-0">
+        <div class="section-content typing-text">
+          $ whoami Group 1 Members: • Keith Renz Dao Romblon • Camille Rico
+          Ramilo • Aira Cheska Villamor • Aireen Joice Dulatre • Catapan Ren •
+          Gesabel Sunga • Lealyn Carmen • Les T ER • Rena Buenasuerto • Meriam
+          R. rojas $ cat presentation_outline.txt PRESENTATION SECTIONS: 1. UNIX
+          Origins (History) 2. Unix in C and Growth 3. Key Unix Concepts 4.
+          Process, Permissions & Networking 5. BSD Family 6. Solaris and System
+          V 7. Linux Origins & Distributions 8. Linux Use Cases 9. Unix vs
+          Windows/macOS 10. Strengths & Modern Role Ready to begin
+          presentation...<span class="cursor">_</span>
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 1: UNIX Origins -->
+      <div class="section" id="section-1">
+        <div class="section-content typing-text">
+          $ history | grep "unix_origins"
+
+          <span class="highlight">═══ 1. UNIX ORIGINS (HISTORY) ═══</span>
+
+          The UNIX operating system originated in the late 1960s at Bell Labs
+          after Bell withdrew from the Multics project.
+
+          <span class="highlight">KEY TIMELINE:</span>
+          • <span class="highlight">1969-1971:</span> Thompson & Ritchie develop
+          "Unics" on PDP-7 • <span class="highlight">1970:</span> Renamed UNIX,
+          ran on PDP-11 • <span class="highlight">1971:</span> Early Unix
+          included text-processing tools (roff, troff) •
+          <span class="highlight">1973:</span> Bell Labs rewrote Unix in C -
+          PIVOTAL for portability
+
+          <span class="ascii-art">
+            1969 1970 1971 1973 | | | | Unics -> UNIX -> Tools -> C Language
+            (PDP-7) (PDP-11) (roff) (Portable!)
+          </span>
+
+          INNOVATIONS: - Hierarchical file system (inherited from Multics) -
+          Time-sharing capabilities - Pipeline/"everything-is-a-file" philosophy
+          began to emerge $ echo "From humble beginnings at Bell Labs..."<span
+            class="cursor"
+            >_</span
+          >
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 2: Unix in C and Growth -->
+      <div class="section" id="section-2">
+        <div class="section-content typing-text">
+          $ cat unix_growth.log
+
+          <span class="highlight">═══ 2. UNIX IN C AND GROWTH ═══</span>
+
+          <span class="highlight">1973 - THE C REVOLUTION:</span>
+          Unix v4 was rewritten in C for the first time. This was PIVOTAL for
+          portability across different hardware platforms.
+
+          <span class="highlight">RAPID EVOLUTION (Late 1970s - 1980s):</span>
+          • <span class="highlight">1979:</span> Version 7 - Last "Research
+          Unix" release • <span class="highlight">1982:</span> AT&T System III
+          (commercial) • <span class="highlight">1983:</span> AT&T System V
+          (commercial)
+
+          <span class="highlight">THE GREAT SPLIT - "UNIX WARS":</span>
+          Berkeley Software Distribution (BSD) branched from AT&T's code
+
+          <span class="ascii-art">
+            AT&T UNIX (1973) | ┌─────────┴─────────┐ │ │ System V (1983) BSD
+            (Berkeley) │ │ Commercial 4.xBSD Research Vendors (TCP/IP, VM) (Sun,
+            SGI, (FreeBSD, NetBSD, IBM, HP) OpenBSD)
+          </span>
+
+          Major vendors created their own proprietary Unix variants, leading to
+          fragmentation but also innovation. $ ps aux | grep
+          "unix_evolution"<span class="cursor">_</span>
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 3: Key Unix Concepts -->
+      <div class="section" id="section-3">
+        <div class="section-content typing-text">
+          $ man unix_concepts
+
+          <span class="highlight">═══ 3. KEY UNIX CONCEPTS ═══</span>
+
+          <span class="highlight">FUNDAMENTAL DESIGN PRINCIPLES:</span>
+
+          1. <span class="highlight">"EVERYTHING IS A FILE"</span> All resources
+          represented in hierarchical file system: - Regular files - Devices
+          (/dev/*) - Pipes (named/unnamed) - Sockets (network communication) 2.
+          <span class="highlight">SHELL + SMALL UTILITIES</span> - Powerful
+          shell language (sh, bash, csh) - Many small command-line tools (ls,
+          grep, awk, sed) - Programs chained by pipes (|) - Each tool does ONE
+          thing well 3. <span class="highlight">HIERARCHICAL FILE SYSTEM</span>
+          Single-rooted directory structure starting from /
+
+          <span class="ascii-art">
+            / ├── bin/ (binaries) ├── etc/ (configuration) ├── home/ (user dirs)
+            ├── usr/ (user programs) └── dev/ (devices)
+          </span>
+
+          4. <span class="highlight">MULTI-USER, MULTITASKING</span> - Designed
+          for time-sharing systems - Preemptive multitasking - Full multi-user
+          capabilities $ find /unix -name "philosophy" -type f<span
+            class="cursor"
+            >_</span
+          >
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 4: Process, Permissions & Networking -->
+      <div class="section" id="section-4">
+        <div class="section-content typing-text">
+          $ ps -ef | head -20
+
+          <span class="highlight"
+            >═══ 4. PROCESS, PERMISSIONS & NETWORKING ═══</span
+          >
+
+          <span class="highlight">PROCESS MANAGEMENT:</span>
+          • Each process has unique PID (Process ID) • Kernel handles fork/exec
+          system calls • Signal handling for inter-process communication •
+          Process scheduling and CPU time allocation
+
+          <span class="highlight">UNIX PERMISSIONS MODEL:</span>
+          File permissions: rwx (read/write/execute) for: • Owner (user) • Group
+          • Others Example: -rwxr-xr-- │└─┬─┘└─┬─┘└─┬─┘ │ │ │ │ │ │ │ └─ Others:
+          r-- (read only) │ │ └─ Group: r-x (read, execute) │ └─ Owner: rwx
+          (read, write, execute) └─ File type (-=file, d=directory)
+
+          <span class="highlight">NETWORKING & CLIENT-SERVER:</span>
+          • Built-in network stack (TCP/IP since BSD) • Socket API for network
+          programming • Daemon model (background services) • Essential for
+          Internet development
+
+          <span class="ascii-art">
+            Client ←→ Socket ←→ Network ←→ Socket ←→ Server | TCP/IP Stack
+          </span>
+
+          $ netstat -an | grep LISTEN<span class="cursor">_</span>
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 5: BSD Family -->
+      <div class="section" id="section-5">
+        <div class="section-content typing-text">
+          $ uname -a && cat /etc/*release*
+
+          <span class="highlight">═══ 5. BSD FAMILY ═══</span>
+
+          <span class="highlight">BERKELEY SOFTWARE DISTRIBUTION (BSD)</span>
+          Originated from 1970s University of California, Berkeley
+
+          <span class="highlight">HISTORICAL BSD RELEASES:</span>
+          • 4.xBSD added TCP/IP networking stack • 4.xBSD introduced virtual
+          memory • Foundation for modern Internet protocols
+
+          <span class="highlight">MODERN BSD DESCENDANTS (1990s+):</span>
+
+          🔸 <span class="highlight">FreeBSD</span> - Focus: Performance &
+          Stability - Popular for servers and appliances - Advanced filesystem
+          features (ZFS support) - Used by Netflix, WhatsApp, Yahoo 🔸
+          <span class="highlight">OpenBSD</span> - Focus: Security - Proactive
+          code audits - "Only two remote holes in the default install!" -
+          Cryptographic innovations (OpenSSH, LibreSSL) 🔸
+          <span class="highlight">NetBSD</span> - Focus: Portability - Runs on
+          widest variety of hardware - "Of course it runs NetBSD" - Clean,
+          portable codebase 🔸 <span class="highlight">DragonFly BSD</span> -
+          Focus: SMP Performance - Advanced multiprocessing features - HAMMER
+          filesystem
+
+          <span class="ascii-art">
+            Berkeley 4.xBSD (1970s-80s) | ┌─────────┼─────────┬─────────┐ │ │ │
+            │ FreeBSD OpenBSD NetBSD DragonFly (Performance) (Security)
+            (Portability) (SMP)
+          </span>
+
+          Modern BSDs power servers and form basis of other OSes (e.g., Apple's
+          Darwin is BSD-based) $ pkg info | wc -l<span class="cursor">_</span>
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 6: Solaris and System V -->
+      <div class="section" id="section-6">
+        <div class="section-content typing-text">
+          $ solaris --version && svr4 --info
+
+          <span class="highlight">═══ 6. SOLARIS AND SYSTEM V ═══</span>
+
+          <span class="highlight">SOLARIS (SunOS) EVOLUTION:</span>
+          • Developed by Sun Microsystems • Originally BSD-based (SunOS 1-4) •
+          Rewritten as System V-based (SunOS 5/Solaris 2+) • Known for
+          enterprise-grade features
+
+          <span class="highlight">INNOVATIVE SOLARIS TECHNOLOGIES:</span>
+
+          🔹 <span class="highlight">ZFS (Zettabyte File System)</span> -
+          Advanced filesystem with built-in RAID - Copy-on-write, snapshots,
+          compression - Data integrity verification - "The last word in
+          filesystems" 🔹
+          <span class="highlight">DTrace (Dynamic Tracing)</span> - Real-time
+          system analysis - Zero-overhead when disabled - Safe production
+          debugging 🔹
+          <span class="highlight">Solaris Zones (Containers)</span> -
+          Lightweight virtualization - OS-level virtualization before Docker -
+          Resource isolation and management 🔹
+          <span class="highlight">Large-scale Multiprocessing</span>
+          - Support for hundreds of CPUs - Advanced memory management -
+          Enterprise workload optimization
+
+          <span class="highlight">OPEN SOURCE JOURNEY:</span>
+          • 2005: Sun open-sourced core as "OpenSolaris" • 2010: Oracle
+          acquisition → closed source • 2010: Illumos project forked OpenSolaris
+          code • Today: Illumos continues open development
+
+          <span class="ascii-art">
+            Sun Microsystems | Solaris ──→ OpenSolaris (2005) | | Oracle (2010)
+            Illumos Fork | | Closed Source Open Source
+          </span>
+
+          $ zpool status && dtrace -l | wc -l<span class="cursor">_</span>
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 7: Linux Origins & Distributions -->
+      <div class="section" id="section-7">
+        <div class="section-content typing-text">
+          $ cat /proc/version && lsb_release -a
+
+          <span class="highlight"
+            >═══ 7. LINUX ORIGINS & DISTRIBUTIONS ═══</span
+          >
+
+          <span class="highlight">LINUX KERNEL ORIGINS:</span>
+          • <span class="highlight">1991:</span> Linus Torvalds releases free
+          kernel for Intel PCs • Monolithic, open-source kernel under GPLv2 •
+          Combined with GNU userland → "GNU/Linux" systems • Community-driven
+          development model • <span class="highlight">Current:</span> 34+
+          million lines of code, 11,000+ contributors
+
+          <span class="highlight">MAJOR LINUX DISTRIBUTIONS:</span>
+
+          🐧 <span class="highlight">UBUNTU</span> (Debian-based, Canonical) -
+          Desktop, Server, Core editions - 34% of web servers running Linux use
+          Ubuntu - Popular in cloud and containers - LTS (Long Term Support)
+          releases 🐧 <span class="highlight">FEDORA</span> (Red Hat sponsored)
+          - Upstream for RHEL (Red Hat Enterprise Linux) - Cutting-edge packages
+          and technologies - Workstation, Server, IoT, Atomic editions 🐧
+          <span class="highlight">CentOS / RHEL</span> (Enterprise) - CentOS:
+          Community rebuild of RHEL sources - 2020: Shifted to "CentOS Stream"
+          model - Rocky Linux: New RHEL clone - Dominant in corporate Linux
+          servers 🐧 <span class="highlight">ARCH LINUX</span> (Advanced users)
+          - Minimal, rolling-release distribution - User control and simplicity
+          philosophy - AUR (Arch User Repository) - Latest software packages
+
+          <span class="ascii-art">
+            Linux Kernel (1991) | ┌─────────┼─────────┬─────────┐ │ │ │ │ Ubuntu
+            Fedora CentOS/ Arch (Canonical) (RedHat) RHEL (Community) │ │ │ │
+            Desktop Cutting Enterprise Rolling Edge Release
+          </span>
+
+          $ cat /etc/os-release<span class="cursor">_</span>
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 8: Linux Use Cases -->
+      <div class="section" id="section-8">
+        <div class="section-content typing-text">
+          $ grep -r "linux_dominance" /var/log/statistics/*
+
+          <span class="highlight">═══ 8. LINUX USE CASES ═══</span>
+
+          <span class="highlight">LINUX DOMINANCE BY NUMBERS (2025):</span>
+
+          🖥️ <span class="highlight">SERVERS & CLOUD:</span> • 62.7% of global
+          servers run Linux • 49.2% of cloud workloads (Q2 2025) • Leading OS
+          for web servers, databases, VMs 💻
+          <span class="highlight">SUPERCOMPUTING:</span> • 100% of world's top
+          500 supercomputers run Linux • High-performance computing standard 📱
+          <span class="highlight">MOBILE & EMBEDDED:</span> • Android
+          (Linux-based): 72% of smartphones • Android: ~46% of global OS market
+          share • 60%+ of IoT developers use Linux platforms • Routers, smart
+          devices, automotive systems 👨‍💻
+          <span class="highlight">DEVELOPMENT:</span>
+          • 79% of developers use Linux as primary/secondary environment •
+          Docker containers, Kubernetes (96% nodes run Linux) • DevOps and
+          cloud-native development
+
+          <span class="highlight">USE CASE BREAKDOWN:</span>
+
+          Desktop: ████░░░░░░ ~3-4% (Growing among developers) Mobile:
+          ████████░░ 72% (via Android) Servers: ██████░░░░ 62.7% Cloud:
+          █████░░░░░ 49.2% Supercomp: ██████████ 100% IoT/Embed: ██████░░░░ 60%+
+
+          <span class="ascii-art">
+            [LINUX ECOSYSTEM] Web Servers ←→ Linux ←→ Cloud VMs ↑ ↓ ↑ Databases
+            → Containers ← Android ↑ ↓ ↑ IoT Devices ←→ Linux ←→ Supercomputers
+          </span>
+
+          Linux's open-source model with 11,000+ kernel contributors drives
+          continuous innovation in all these domains. $ systemctl status | head
+          -20<span class="cursor">_</span>
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 9: Unix vs Windows/macOS -->
+      <div class="section" id="section-9">
+        <div class="section-content typing-text">
+          $ diff unix_systems windows_macos
+
+          <span class="highlight">═══ 9. UNIX vs WINDOWS/macOS ═══</span>
+
+          <span class="highlight">KERNEL ARCHITECTURE COMPARISON:</span>
+
+          🔸 <span class="highlight">LINUX/UNIX:</span> Monolithic Kernel - All
+          core functions in kernel space - Examples: Linux, Solaris, FreeBSD -
+          Loadable modules for drivers 🔸
+          <span class="highlight">WINDOWS NT:</span> Hybrid Kernel - Modified
+          microkernel (Mach-influenced) - Some services in user space - Win32/NT
+          APIs (not POSIX) 🔸 <span class="highlight">macOS (XNU):</span> Hybrid
+          Kernel - Mach microkernel + BSD subsystems - Unix-based under the hood
+          - Apple security features (Gatekeeper, SIP)
+
+          <span class="highlight">LICENSING & PHILOSOPHY:</span>
+
+          │ System │ License │ Philosophy │ Source │
+          ├────────────┼──────────────┼────────────────┼───────────┤ │ Linux │
+          GPL (Free) │ Open Community │ Available │ │ Unix (BSD) │ BSD (Free) │
+          Academic/Free │ Available │ │ Unix (Comm)│ Proprietary │ Enterprise │
+          Closed │ │ Windows │ Proprietary │ Commercial │ Closed │ │ macOS │
+          Proprietary │ Consumer/Pro │ Partial │
+
+          <span class="highlight">MARKET SHARE (2025):</span>
+
+          DESKTOP: Windows: ████████████████████████████████ 71% macOS: ████████
+          16% Linux: ██ 4% MOBILE: Android: ████████████████████████████████ 72%
+          iOS: ████████████████ 28% SERVERS: Linux:
+          ████████████████████████████████ 62.7% Windows: ██████████ 23% Unix:
+          ██ 5%
+
+          <span class="highlight">SECURITY & ADMINISTRATION:</span>
+          • Unix/Linux: Permission bits (rwx), user separation • Windows: ACLs
+          (Access Control Lists), Registry • macOS: Unix permissions + Apple
+          security layers $ file /bin/bash /Windows/System32/cmd.exe<span
+            class="cursor"
+            >_</span
+          >
+        </div>
+        <div class="prompt">Press ENTER or SPACE to continue...</div>
+      </div>
+
+      <!-- Section 10: Strengths & Modern Role -->
+      <div class="section" id="section-10">
+        <div class="section-content typing-text">
+          $ cat /proc/strengths && systemctl list-units --type=service
+
+          <span class="highlight">═══ 10. STRENGTHS & MODERN ROLE ═══</span>
+
+          <span class="highlight">CORE STRENGTHS OF UNIX/LINUX:</span>
+
+          🔧 <span class="highlight">RELIABILITY & STABILITY</span> • Long
+          uptimes on servers (years without reboot) • Predictable performance
+          under load • Robust process isolation and memory management 🔒
+          <span class="highlight">SECURITY & CONTROL</span> • Strong permission
+          models (user/group separation) • SELinux/AppArmor (Linux), TPM/ACLs
+          (Solaris/BSD) • Extensive encryption and security tooling 🔄
+          <span class="highlight">FLEXIBILITY & PORTABILITY</span> • Runs on
+          everything: mainframes → ARM microcontrollers • 46% of global OS usage
+          (thanks to Android) • Cross-platform development and deployment 🌐
+          <span class="highlight">NETWORKING & INTERNET</span>
+          • Built for TCP/IP from the ground up (BSD legacy) • Powers most
+          Internet infrastructure • Strong support for protocols, services, APIs
+
+          <span class="highlight">MODERN TECHNOLOGICAL LEADERSHIP:</span>
+
+          ☁️ <span class="highlight">CLOUD COMPUTING:</span> • AWS, Azure,
+          Google Cloud primarily Linux VMs • Container orchestration
+          (Kubernetes: 96% Linux nodes) • Serverless platforms and microservices
+          🤖 <span class="highlight">ARTIFICIAL INTELLIGENCE:</span> •
+          TensorFlow, PyTorch optimized for Linux • GPU computing and CUDA
+          support • ML/AI development environments 🏭
+          <span class="highlight">INDUSTRIAL & IOT:</span>
+          • Automotive systems (Tesla, many manufacturers) • Industrial
+          automation and control systems • Smart city infrastructure and edge
+          computing
+
+          <span class="ascii-art">
+            [MODERN UNIX/LINUX ECOSYSTEM] Cloud ←→ Containers ←→ Microservices ↑
+            ↓ ↑ IoT/Edge ← Linux/Unix → Supercomputing ↑ ↓ ↑ Mobile/Android ←→
+            AI/ML ←→ Servers
+          </span>
+
+          <span class="highlight">INNOVATION THROUGH COMMUNITY:</span>
+          • 11,000+ kernel contributors actively developing • Technologies like
+          Docker, Kubernetes born on Linux • Rapid adoption of new hardware and
+          protocols The future belongs to open, flexible, networked systems.
+          UNIX and Linux continue to lead this evolution. $ echo "Questions?" &&
+          while true; do sleep 1; done<span class="cursor">_</span>
+        </div>
+        <div class="prompt">End of presentation - Thank you!</div>
+      </div>
+
+      <div class="navigation">
+        <div>Section: <span id="current-section">0</span> / 10</div>
+        <button class="nav-button" onclick="previousSection()">← Prev</button>
+        <button class="nav-button" onclick="nextSection()">Next →</button>
+        <button class="nav-button" onclick="toggleAutoPlay()">Auto</button>
+      </div>
+    </div>
+
+    <script>
+      let currentSection = 0;
+      let isTyping = false;
+      let autoPlay = false;
+      let autoPlayInterval;
+      const totalSections = 10;
+
+      function showSection(sectionIndex) {
+        // Hide all sections
+        document.querySelectorAll(".section").forEach((section) => {
+          section.classList.remove("active");
+        });
+
+        // Show current section
+        const section = document.getElementById(`section-${sectionIndex}`);
+        if (section) {
+          section.classList.add("active");
+          currentSection = sectionIndex;
+          document.getElementById("current-section").textContent = sectionIndex;
+
+          // Start typing animation
+          startTypingAnimation(section);
+        }
+      }
+
+      function startTypingAnimation(section) {
+        const typingElement = section.querySelector(".typing-text");
+        if (!typingElement) return;
+
+        isTyping = true;
+        const fullText = typingElement.textContent;
+        typingElement.textContent = "";
+
+        let charIndex = 0;
+        const typingSpeed = 30; // milliseconds per character
+
+        function typeChar() {
+          if (charIndex < fullText.length) {
+            typingElement.textContent = fullText.slice(0, charIndex + 1);
+            charIndex++;
+            setTimeout(typeChar, typingSpeed);
+          } else {
+            isTyping = false;
+            // Add blinking cursor at the end
+            const cursor = typingElement.querySelector(".cursor");
+            if (cursor) {
+              cursor.style.display = "inline";
+            }
+          }
+        }
+
+        typeChar();
+      }
+
+      function nextSection() {
+        if (!isTyping && currentSection < totalSections) {
+          showSection(currentSection + 1);
+        }
+      }
+
+      function previousSection() {
+        if (!isTyping && currentSection > 0) {
+          showSection(currentSection - 1);
+        }
+      }
+
+      function toggleAutoPlay() {
+        autoPlay = !autoPlay;
+        if (autoPlay) {
+          autoPlayInterval = setInterval(() => {
+            if (!isTyping) {
+              if (currentSection < totalSections) {
+                nextSection();
+              } else {
+                // Reset to beginning
+                showSection(0);
+              }
+            }
+          }, 8000); // 8 seconds between sections
+        } else {
+          clearInterval(autoPlayInterval);
+        }
+      }
+
+      // Keyboard navigation
+      document.addEventListener("keydown", function (event) {
+        if (event.code === "Enter" || event.code === "Space") {
+          event.preventDefault();
+          nextSection();
+        } else if (event.code === "ArrowLeft" || event.code === "Backspace") {
+          event.preventDefault();
+          previousSection();
+        } else if (event.code === "ArrowRight") {
+          event.preventDefault();
+          nextSection();
+        }
+      });
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        showSection(0);
+      });
+
+      // Terminal-style click to advance
+      document.addEventListener("click", function (event) {
+        if (
+          !event.target.closest(".navigation") &&
+          !event.target.closest(".nav-button")
+        ) {
+          nextSection();
+        }
+      });
+    </script>
+  </body>
+</html>
